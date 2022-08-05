@@ -1,0 +1,75 @@
+﻿Imports System
+Imports System.Data
+Imports System.Data.SqlClient
+Public Class Frm_Cat_Editar_Contratos_y_Evaluaciones
+    Private Sub Frm_Cat_Editar_Contratos_y_Evaluaciones_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        If (e.KeyCode = Keys.Escape) Then
+            Me.TextBox1.Text = ""
+            Me.TextBox2.Text = ""
+            Me.CheckBox1.Checked = False
+            Me.TextBox2.Focus()
+            CERRAR = True
+            Me.Close()
+        End If
+    End Sub
+    Private Sub Frm_Cat_Editar_Contratos_y_Evaluaciones_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
+        Me.TextBox1.Text = c45ID_CONT
+        Me.TextBox2.Text = c45DESCRIPCION
+        Me.CheckBox1.Checked = c45ACTIVO
+        Me.TextBox2.Focus()
+    End Sub
+    Private Sub Button2_Click(sender As Object, e As System.EventArgs) Handles Button2.Click
+        Me.TextBox1.Text = ""
+        Me.TextBox2.Text = ""
+        Me.CheckBox1.Checked = False
+        Me.TextBox2.Focus()
+        CERRAR = True
+        Me.Close()
+    End Sub
+    Private Sub CheckBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles CheckBox1.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+    Private Sub TextBox2_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox2.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If TextBox1.Text = "0" Or TextBox1.Text = "" Then
+            MsgBox("No se ha generado el Codigo del registro", vbInformation, "Mensaje del Sistema")
+            Me.TextBox1.Text = "0"
+            Me.Button2.Focus()
+            Exit Sub
+        End If
+        If Len(Me.TextBox2.Text) = 0 Then
+            MsgBox("Debe digitar la Descripción Correctamente", vbInformation, "Mensaje del Sistema")
+            Me.TextBox2.Focus()
+            Exit Sub
+        End If
+        Call EDITAR_REGISTRO()
+        c45ID_CONT = Me.TextBox1.Text
+        CERRAR = False
+        Me.Close()
+    End Sub
+    Private Sub EDITAR_REGISTRO()
+        If Conexion.CxRRHH.State = ConnectionState.Open Then
+            Conexion.CBD_RRHH()
+        End If
+        Conexion.ABD_RRHH()
+        Dim MiSqlCommand As SqlCommand = Conexion.CxRRHH.CreateCommand
+        Try
+            MiSqlCommand.CommandText = "UPDATE [CAT DE CONTRATOS] SET DESCRIPCION = '" & Trim(Me.TextBox2.Text) & "', ACTIVO = '" & Me.CheckBox1.Checked & "' WHERE ID_CONT = " & CInt(Me.TextBox1.Text) & ""
+            MiSqlCommand.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox("Error: " & ex.Message, vbInformation, "Mensaje del Sistema")
+        Finally
+            If Conexion.CxRRHH.State = ConnectionState.Open Then
+                Conexion.CBD_RRHH()
+            End If
+        End Try
+    End Sub
+End Class
