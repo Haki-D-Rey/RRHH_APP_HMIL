@@ -657,6 +657,7 @@ Public Class Frm_Visor_Reportes
             Dim V14 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V14.Value = VALOR14   'SALARIO
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
+            Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17   'SALARIO LETRAS'
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
             RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
@@ -673,6 +674,7 @@ Public Class Frm_Visor_Reportes
             RpDatos.Add(V14) : CR.DataDefinition.ParameterFields("p14").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
+            RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
             GoTo SALTO
@@ -696,6 +698,7 @@ Public Class Frm_Visor_Reportes
             Dim V14 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V14.Value = VALOR14   'SALARIO
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
+            Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17  'A QUIEN DIRIGE'
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
             RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
@@ -712,6 +715,7 @@ Public Class Frm_Visor_Reportes
             RpDatos.Add(V14) : CR.DataDefinition.ParameterFields("p14").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
+            RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
             GoTo SALTO
@@ -735,6 +739,7 @@ Public Class Frm_Visor_Reportes
             Dim V14 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V14.Value = VALOR14   'SALARIO
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
+            Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17  'A QUIEN DIRIGE'
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
             RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
@@ -751,6 +756,7 @@ Public Class Frm_Visor_Reportes
             RpDatos.Add(V14) : CR.DataDefinition.ParameterFields("p14").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
+            RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
             GoTo SALTO
@@ -774,6 +780,7 @@ Public Class Frm_Visor_Reportes
             Dim V14 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V14.Value = VALOR14   'SALARIO
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
+            Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17   'A QUIEN DIRIGE'
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
             RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
@@ -790,6 +797,7 @@ Public Class Frm_Visor_Reportes
             RpDatos.Add(V14) : CR.DataDefinition.ParameterFields("p14").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
+            RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
             GoTo SALTO
@@ -1113,4 +1121,8 @@ SALTO:
 SALTO2:
         Me.Close()
     End Sub
+
+    Friend Shared Function CrystalReportViewer1() As Object
+        Throw New NotImplementedException()
+    End Function
 End Class

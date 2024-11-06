@@ -2,13 +2,18 @@
 Imports System.ComponentModel
 Imports System.Data
 Imports System.Data.SqlClient
+Imports Newtonsoft.Json
 Public Class Frm_Reportes_Constancias
+
+    Private EstadoCheckedBox As Boolean = False
+
     Private Sub Frm_Reportes_Constancias_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If (e.KeyCode = Keys.Escape) Then
             Me.Close()
         End If
     End Sub
     Private Sub Frm_Reportes_Constancias_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
+
         Me.TextBox1.Text = ""
         Me.TextBox6.Text = ""
         Me.TextBox2.Text = ""
@@ -16,12 +21,16 @@ Public Class Frm_Reportes_Constancias
         Me.DateTimePicker1.Value = Now
         Me.TextBox4.Text = ""
         Me.TextBox5.Text = ""
-        Me.CheckBox1.Checked = True
-        Me.TextBox12.Text = ""
-        Me.TextBox11.Text = ""
-        Me.CheckBox2.Checked = False
-        Me.TextBox13.Text = "Master"
-        Me.TextBox14.Text = "MARIA DINA ARROLIGA TRIANA"
+        Me.CheckBox1.Checked = Me.EstadoCheckedBox
+        Me.CheckBox2.Checked = Me.EstadoCheckedBox
+
+
+        Me.TextBox12.Text = "Tnte. Cnel. (Inf.) DEM"
+        Me.TextBox11.Text = "JUAN RAMÓN REYES PÉRES"
+        Me.TextBox13.Text = "Licenciada"
+        Me.TextBox14.Text = "MARIA ISABEL PEREZ MOLINA"
+        Me.TextBox8.Text = "Licenciada"
+        Me.TextBox16.Text = "MARCELA ESILDA LARIOS MALESPIN"
         Me.TextBox7.Text = "para los tramites que estime convenientes"
         Me.TextBox15.Text = ""
         Me.TextBox1.SelectAll()
@@ -61,7 +70,7 @@ Public Class Frm_Reportes_Constancias
                     CADENAsql = "SELECT ID_M_P, CODIGO, APELLIDOS, NOMBRES, N_CEDULA, FEC_ING_PAME, ID_ESTADO_P, ID_N_PROFESIONAL, ID_T_SEXO, PREFIJO FROM [dbo].[VISTA MAESTRO DE PERSONAS] WHERE CODIGO = '" & Me.TextBox1.Text & "' AND ID_ESTADO_P = 2"
                 End If
                 Call BUSCAR_DATO_1()
-                    If DATO_1 = True Then
+                If DATO_1 = True Then
                     If CODIGO_REPORTE = "E0009" Or CODIGO_REPORTE = "E0011" Then
                         Call BUSCAR_DATO_2_ACTIVOS()
                     End If
@@ -71,16 +80,16 @@ Public Class Frm_Reportes_Constancias
                     Call BUSCAR_DATO_3()
                     Call BUSCAR_DATO_5()
                     Call FECHAS()
-                        e.Handled = True
-                        SendKeys.Send("{TAB}")
-                    Else
-                        MsgBox("El código que se digitó no es válido", vbInformation, "Mensaje del Sistema")
-                        Me.TextBox1.SelectAll()
-                        Me.TextBox1.Focus()
-                        Exit Sub
-                    End If
+                    e.Handled = True
+                    SendKeys.Send("{TAB}")
+                Else
+                    MsgBox("El código que se digitó no es válido", vbInformation, "Mensaje del Sistema")
+                    Me.TextBox1.SelectAll()
+                    Me.TextBox1.Focus()
+                    Exit Sub
                 End If
             End If
+        End If
     End Sub
     Private Sub BUSCAR_DATO_5()
         If Conexion.CxRRHH.State = ConnectionState.Open Then
@@ -536,6 +545,12 @@ DEPARTAMENTO:
             SendKeys.Send("{TAB}")
         End If
     End Sub
+    Private Sub CheckBox3_KeyDown(sender As Object, e As KeyEventArgs) Handles CheckBox3.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
     Private Sub TextBox12_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox12.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.Handled = True
@@ -560,11 +575,41 @@ DEPARTAMENTO:
             SendKeys.Send("{TAB}")
         End If
     End Sub
+    Private Sub TextBox16_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox16.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
     Private Sub TextBox7_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox7.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.Handled = True
             SendKeys.Send("{TAB}")
         End If
+    End Sub
+
+    Private Sub TextBox16_TextChanged(sender As Object, e As EventArgs) Handles TextBox16.TextChanged
+
+    End Sub
+
+    Private Sub TextBox14_TextChanged(sender As Object, e As EventArgs) Handles TextBox14.TextChanged
+
+    End Sub
+
+    Private Sub CheckBox3_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox3.CheckedChanged
+
+    End Sub
+
+    Private Sub TextBox13_TextChanged(sender As Object, e As EventArgs) Handles TextBox13.TextChanged
+
+    End Sub
+
+    Private Sub TextBox12_TextChanged(sender As Object, e As EventArgs) Handles TextBox12.TextChanged
+
+    End Sub
+
+    Private Sub TextBox11_TextChanged(sender As Object, e As EventArgs) Handles TextBox11.TextChanged
+
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
@@ -630,11 +675,20 @@ DEPARTAMENTO:
         If Me.CheckBox1.Checked = True Then
             VALOR09 = Me.TextBox12.Text 'GRADO JEFE
             VALOR10 = Me.TextBox11.Text 'NOMBRES Y APELLIDOS JEFE
-            VALOR15 = "Jefe Sección Personal y Cuadros" 'CARGO JEFE
-        Else
+            VALOR15 = Me.CheckBox1.Text 'CARGO JEFE 
+            VALOR17 = $"El suscrito {Me.CheckBox1.Text} del Hospital Militar, hace constar:"
+
+        ElseIf Me.CheckBox2.Checked = True Then
             VALOR09 = Me.TextBox13.Text 'GRADO 1ER OFICIAL
             VALOR10 = Me.TextBox14.Text 'NOMBRES Y APELLIDOS 1ER OFICIAL
-            VALOR15 = "Coordinador de Recursos Humanos" 'CARGO 1ER OFICIAL
+            VALOR15 = Me.CheckBox2.Text 'CARGO 1ER OFICIAL
+            VALOR17 = $"El suscrito {Me.CheckBox2.Text} del Hospital Militar, hace constar:"
+        Else
+            VALOR09 = Me.TextBox8.Text 'GRADO JEFE
+            VALOR10 = Me.TextBox16.Text 'NOMBRES Y APELLIDOS JEFE
+            VALOR15 = Me.CheckBox3.Text 'CARGO JEFE
+
+            VALOR17 = $"La suscrita {Me.CheckBox3.Text} del Hospital Militar, hace constar:"
         End If
         VALOR11 = Me.TextBox7.Text      'ASUNTO
         VALOR12 = Me.TextBox15.Text     'FECHA EN LETRAS
@@ -682,4 +736,26 @@ DEPARTAMENTO:
         Me.TextBox10.Text = LETRAS_CONSTANCIAS(Me.TextBox9.Text)
         Me.TextBox10.Text = "(" & Me.TextBox10.Text & ")"
     End Sub
+
+    ' Variable para rastrear el último checkbox clickeado
+    Private ultimoCheckBoxClickeado As CheckBox
+
+    ' Manejador de evento para todos los checkboxes
+    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged, CheckBox2.CheckedChanged, CheckBox3.CheckedChanged
+        Dim clickedCheckBox As CheckBox = DirectCast(sender, CheckBox)
+
+        ' Verifica si el checkbox clickeado es diferente al último clickeado
+        If clickedCheckBox IsNot ultimoCheckBoxClickeado Then
+            ' Desactiva todos los checkboxes excepto el clickeado
+            For Each checkBox As CheckBox In {CheckBox1, CheckBox2, CheckBox3}
+                If checkBox IsNot clickedCheckBox Then
+                    checkBox.Checked = False
+                End If
+            Next
+        End If
+
+        ' Actualiza el último checkbox clickeado
+        ultimoCheckBoxClickeado = clickedCheckBox
+    End Sub
+
 End Class

@@ -301,7 +301,7 @@ Public Class Frm_Becados
         'Frm_Visor_Reportes.CrystalReportViewer1.ShowExportButton = True
         'Frm_Visor_Reportes.CrystalReportViewer1.ShowPrintButton = True
         'SELECCION = "{MAESTRO_DE_BECADOS.ID_B} = " & mbID_B
-        'Frm_Visor_Reportes.ShowDialog()
+        Frm_Visor_Reportes.ShowDialog()
     End Sub
     Private Sub Frm_Becados_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         BECADOS = False

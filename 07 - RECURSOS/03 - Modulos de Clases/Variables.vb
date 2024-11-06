@@ -101,6 +101,7 @@ Module Variables
     Public VALOR14 As String
     Public VALOR15 As String
     Public VALOR16 As String
+    Public VALOR17 As String
 
     Public vIP As String
 

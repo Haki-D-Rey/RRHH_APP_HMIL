@@ -44,6 +44,7 @@ Partial Class Frm_Reportes_Constancias
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TextBox14 = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.TextBox12 = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TextBox11 = New System.Windows.Forms.TextBox()
@@ -59,6 +60,10 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox10 = New System.Windows.Forms.TextBox()
         Me.TextBox9 = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TextBox16 = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -232,6 +237,7 @@ Partial Class Frm_Reportes_Constancias
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.TextBox14)
         Me.GroupBox1.Controls.Add(Me.Label13)
+        Me.GroupBox1.Controls.Add(Me.CheckBox3)
         Me.GroupBox1.Controls.Add(Me.TextBox12)
         Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Controls.Add(Me.TextBox11)
@@ -241,7 +247,7 @@ Partial Class Frm_Reportes_Constancias
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(7, 104)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(668, 147)
+        Me.GroupBox1.Size = New System.Drawing.Size(1025, 147)
         Me.GroupBox1.TabIndex = 21
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Firmas"
@@ -253,7 +259,7 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox13.Name = "TextBox13"
         Me.TextBox13.Size = New System.Drawing.Size(324, 20)
         Me.TextBox13.TabIndex = 7
-        Me.TextBox13.Text = "Master"
+        Me.TextBox13.Text = "Licenciada"
         '
         'Label12
         '
@@ -274,7 +280,7 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox14.Name = "TextBox14"
         Me.TextBox14.Size = New System.Drawing.Size(324, 20)
         Me.TextBox14.TabIndex = 9
-        Me.TextBox14.Text = "MARIA DINA ARROLIGA TRIANA"
+        Me.TextBox14.Text = "MARIA ISABEL PEREZ MOLINA"
         '
         'Label13
         '
@@ -287,6 +293,16 @@ Partial Class Frm_Reportes_Constancias
         Me.Label13.TabIndex = 8
         Me.Label13.Text = "Nombres y Apellidos"
         '
+        'CheckBox3
+        '
+        Me.CheckBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox3.Location = New System.Drawing.Point(674, 19)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(269, 17)
+        Me.CheckBox3.TabIndex = 28
+        Me.CheckBox3.Text = "Gerencia de Recursos Humanos"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
         'TextBox12
         '
         Me.TextBox12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -294,6 +310,7 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox12.Name = "TextBox12"
         Me.TextBox12.Size = New System.Drawing.Size(324, 20)
         Me.TextBox12.TabIndex = 2
+        Me.TextBox12.Text = "Tnte. Cnel (Inf.) DEM"
         '
         'Label11
         '
@@ -314,6 +331,7 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox11.Name = "TextBox11"
         Me.TextBox11.Size = New System.Drawing.Size(324, 20)
         Me.TextBox11.TabIndex = 4
+        Me.TextBox11.Text = "JUAN RAMON REYES PEREZ"
         '
         'Label10
         '
@@ -333,7 +351,7 @@ Partial Class Frm_Reportes_Constancias
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(269, 17)
         Me.CheckBox2.TabIndex = 5
-        Me.CheckBox2.Text = "Coordinador de Recursos Humanos"
+        Me.CheckBox2.Text = "Jefe Departamento Compensaciones y Beneficios"
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'CheckBox1
@@ -438,12 +456,57 @@ Partial Class Frm_Reportes_Constancias
         Me.Label16.TabIndex = 18
         Me.Label16.Text = "Salario"
         '
+        'TextBox8
+        '
+        Me.TextBox8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox8.Location = New System.Drawing.Point(681, 170)
+        Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.Size = New System.Drawing.Size(324, 20)
+        Me.TextBox8.TabIndex = 30
+        Me.TextBox8.Text = "Licenciada"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label9.Location = New System.Drawing.Point(681, 150)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(36, 13)
+        Me.Label9.TabIndex = 29
+        Me.Label9.Text = "Grado"
+        '
+        'TextBox16
+        '
+        Me.TextBox16.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TextBox16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox16.Location = New System.Drawing.Point(681, 218)
+        Me.TextBox16.Name = "TextBox16"
+        Me.TextBox16.Size = New System.Drawing.Size(324, 20)
+        Me.TextBox16.TabIndex = 32
+        Me.TextBox16.Text = "MARCELA ESILDA LARIOS MALESPIN"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label17.Location = New System.Drawing.Point(681, 198)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(102, 13)
+        Me.Label17.TabIndex = 31
+        Me.Label17.Text = "Nombres y Apellidos"
+        '
         'Frm_Reportes_Constancias
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(682, 369)
+        Me.ClientSize = New System.Drawing.Size(1107, 369)
         Me.ControlBox = False
+        Me.Controls.Add(Me.TextBox8)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.TextBox16)
+        Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.TextBox10)
         Me.Controls.Add(Me.TextBox9)
         Me.Controls.Add(Me.Label16)
@@ -521,4 +584,9 @@ Partial Class Frm_Reportes_Constancias
     Friend WithEvents TextBox10 As TextBox
     Friend WithEvents TextBox9 As TextBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents CheckBox3 As CheckBox
+    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents TextBox16 As TextBox
+    Friend WithEvents Label17 As Label
 End Class
