@@ -310,7 +310,7 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox12.Name = "TextBox12"
         Me.TextBox12.Size = New System.Drawing.Size(324, 20)
         Me.TextBox12.TabIndex = 2
-        Me.TextBox12.Text = "Tnte. Cnel (Inf.) DEM"
+        Me.TextBox12.Text = "Teniente Coronel (Inf.) DEM"
         '
         'Label11
         '
@@ -463,7 +463,7 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.Size = New System.Drawing.Size(324, 20)
         Me.TextBox8.TabIndex = 30
-        Me.TextBox8.Text = "Licenciada"
+        Me.TextBox8.Text = "Master"
         '
         'Label9
         '
@@ -484,7 +484,7 @@ Partial Class Frm_Reportes_Constancias
         Me.TextBox16.Name = "TextBox16"
         Me.TextBox16.Size = New System.Drawing.Size(324, 20)
         Me.TextBox16.TabIndex = 32
-        Me.TextBox16.Text = "MARCELA ESILDA LARIOS MALESPIN"
+        Me.TextBox16.Text = "NORMA MEDINA URBINA"
         '
         'Label17
         '
