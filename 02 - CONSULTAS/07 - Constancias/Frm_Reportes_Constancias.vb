@@ -25,12 +25,12 @@ Public Class Frm_Reportes_Constancias
         Me.CheckBox2.Checked = Me.EstadoCheckedBox
 
 
-        Me.TextBox12.Text = "Tnte. Cnel. (Inf.) DEM"
+        Me.TextBox12.Text = "Teniente Coronel. (Inf.) DEM"
         Me.TextBox11.Text = "JUAN RAMÓN REYES PÉRES"
         Me.TextBox13.Text = "Licenciada"
         Me.TextBox14.Text = "MARIA ISABEL PEREZ MOLINA"
-        Me.TextBox8.Text = "Licenciada"
-        Me.TextBox16.Text = "MARCELA ESILDA LARIOS MALESPIN"
+        Me.TextBox8.Text = "Master"
+        Me.TextBox16.Text = "NORMA MEDINA URBINA"
         Me.TextBox7.Text = "para los tramites que estime convenientes"
         Me.TextBox15.Text = ""
         Me.TextBox1.SelectAll()
