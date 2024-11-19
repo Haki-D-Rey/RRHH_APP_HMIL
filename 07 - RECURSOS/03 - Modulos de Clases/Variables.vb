@@ -59,6 +59,7 @@ Module Variables
     Public PARAMETRO As Integer
     'VARIABLE QUE ALMACENA SELECCION REPORTES
     Public SELECCION As String
+    Public DiccionarioParametros As New Dictionary(Of String, String)
     'VARIABLE QUE ALMACENA SELECCION DE PARAMETROS PARA REPORTES
     Public SELECCION_PARAMETRO As String
     Public USUARIO_IMPRIME As String

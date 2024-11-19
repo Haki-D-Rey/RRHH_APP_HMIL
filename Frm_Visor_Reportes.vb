@@ -1099,6 +1099,76 @@ Public Class Frm_Visor_Reportes
             CrystalR.ReportSource = CR
             GoTo SALTO
         End If
+        If PARAMETRO = 156 Then
+            ' Ruta del reporte
+            ' Ruta del reporte
+            rptlocation = PathRPT & NOMBRE_DEL_REPORTE_CR
+            CR.Load(rptlocation)
+
+            ' Define las claves válidas
+            Dim clavesValidas As New HashSet(Of String)({"FechaSP", "SituacionAusenteSP"})
+            Dim Filtro_SituacionB As String = ""
+
+            ' Itera sobre el diccionario
+            For Each kvp As KeyValuePair(Of String, String) In DiccionarioParametros
+                ' Valida si la clave está permitida
+                If Not clavesValidas.Contains(kvp.Key) Then
+                    ' Asigna el valor de Filtro_SituacionB si es la clave "Filtro_Situacion"
+                    If kvp.Key = "Filtro_Situacion" Then
+                        Filtro_SituacionB = kvp.Value
+                    End If
+                    Continue For
+                End If
+
+                Dim parametroValores As New CrystalDecisions.Shared.ParameterValues()
+                Dim parametroValor As New CrystalDecisions.Shared.ParameterDiscreteValue()
+
+                ' Determina qué parámetro estás configurando en base a la clave
+                Select Case kvp.Key
+                    Case "FechaSP"
+                        parametroValor.Value = CDate(kvp.Value & " 00:00:00")
+                    Case "SituacionAusenteSP"
+                        parametroValor.Value = kvp.Value
+                    Case Else
+                        parametroValor.Value = kvp.Value
+                End Select
+
+                parametroValores.Add(parametroValor)
+                CR.DataDefinition.ParameterFields(kvp.Key).ApplyCurrentValues(parametroValores)
+            Next
+
+            ' Obtener todas las secciones del reporte
+            Dim secciones As CrystalDecisions.CrystalReports.Engine.Sections = CR.ReportDefinition.Sections
+
+            ' Lógica para recorrer todas las secciones
+            For i As Integer = 0 To secciones.Count - 1
+                Dim seccion As CrystalDecisions.CrystalReports.Engine.Section = secciones(i)
+
+                ' Verificar si Filtro_SituacionB es "Consolidado Jerárquico"
+                If Filtro_SituacionB = "Consolidado Jerárquico" Then
+                    ' Ocultar las secciones en las posiciones 2 y 5
+                    If i = 2 Or i = 5 Then
+                        seccion.SectionFormat.EnableSuppress = True ' Ocultar la sección
+                    ElseIf i = 3 Or i = 4 Then
+                        seccion.SectionFormat.EnableSuppress = False ' Mostrar la sección
+                    End If
+                Else
+                    ' Ocultar las secciones en las posiciones 3 y 4
+                    If i = 2 Or i = 5 Then
+                        seccion.SectionFormat.EnableSuppress = False ' Mostrar la sección
+                    ElseIf i = 3 Or i = 4 Then
+                        seccion.SectionFormat.EnableSuppress = True ' Ocultar la sección
+                    End If
+                End If
+            Next
+
+            ' Credenciales para la base de datos
+            CR.SetDatabaseLogon("sa", "P@$$W0RD")
+
+            ' Asignación al visor
+            CrystalR.ReportSource = CR
+        End If
+
         '*******************************************************************************************
         '*******************************************************************************************
         '*******************************************************************************************
