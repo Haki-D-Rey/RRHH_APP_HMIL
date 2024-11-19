@@ -6,6 +6,7 @@ Imports System.Data.SqlClient
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 Public Class Frm_Seleccion_Consultas_y_Reportes
+
     Private Sub Frm_Seleccion_Consultas_y_Reportes_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If (e.KeyCode = Keys.Escape) Then
             NOMBRE_REPORTE = ""
@@ -1416,6 +1417,7 @@ Public Class Frm_Seleccion_Consultas_y_Reportes
     End Sub
     Private Sub Button200_Click(sender As Object, e As EventArgs) Handles Button200.Click
         Me.Lista_Principal.Items.Clear()
+        DiccionarioParametros.Clear()
         Call LIMPIAR_LISTAS_DE_SELECCION()
     End Sub
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button300.Click
@@ -5074,6 +5076,7 @@ SALIR:
         If NOMBRE_REPORTE = "S0011 - Indicadores de < Cantidad de Empleados por Tipo de Situacion B >" Then : Call VERIFICAR_ACCESOS("368") : If HAY_ACCESO = False Then : Exit Sub : End If : End If
         If NOMBRE_REPORTE = "S0012 - Indicadores de < Cantidad de Dias por Empleado y Tipo de Situacion >" Then : Call VERIFICAR_ACCESOS("369") : If HAY_ACCESO = False Then : Exit Sub : End If : End If
         If NOMBRE_REPORTE = "S0013 - Indicadores de < Lista de Empleados por Tipo de Situacion >" Then : Call VERIFICAR_ACCESOS("370") : If HAY_ACCESO = False Then : Exit Sub : End If : End If
+        If NOMBRE_REPORTE = "S0015 - Indicadores de < Asistencia por Situacion de Personal >" Then : Call VERIFICAR_ACCESOS("370") : If HAY_ACCESO = False Then : Exit Sub : End If : End If
 
         If NOMBRE_REPORTE = "S0014 - Colilla de Saldo Vacacional" Then : Call VERIFICAR_ACCESOS("371") : If HAY_ACCESO = False Then : Exit Sub : End If : End If
         If NOMBRE_REPORTE = "D0001 - Dosimetria" Then : Call VERIFICAR_ACCESOS("372") : If HAY_ACCESO = False Then : Exit Sub : End If : End If
@@ -5083,7 +5086,39 @@ SALIR:
         '***********************
         Call ARMAR_CADENA_FILTRO_SELECCION_REPORTE()
         Call ARMAR_CADENA_GENERAL()
-        SELECCION = CADENA_LISTAS
+
+        ' Construye la cadena de selección dependiendo de CADENA_LISTAS
+        If String.IsNullOrEmpty(CADENA_LISTAS) Then
+            ' Recorre los elementos de la lista principal y forma la cadena
+            Dim itemsLista As New List(Of String)
+            For Each item In Me.Lista_Principal.Items
+                itemsLista.Add(item.ToString().Trim()) ' Limpia espacios en blanco
+            Next
+            SELECCION = String.Join(",", itemsLista) ' Une los elementos con comas
+
+            If Not String.IsNullOrEmpty(SELECCION) Then
+                ' Separar por las comas para obtener cada parte
+                Dim partes As String() = SELECCION.Split(","c)
+
+                ' Recorrer cada parte para extraer claves y valores
+                For Each parte In partes
+                    If parte.Contains(":") Then
+                        ' Separar por los dos puntos
+                        Dim segmentos As String() = parte.Split(":"c)
+                        Dim clave As String = segmentos(0).Trim() ' Antes de ":"
+                        Dim valor As String = segmentos(1).Trim() ' Después de ":"
+                        clave = If(clave = "Fecha de Situacion" And NOMBRE_REPORTE = "S0015 - Indicadores de < Asistencia por Situacion de Personal >", "FechaSP", clave)
+                        ' Agregar al diccionario
+                        If Not DiccionarioParametros.ContainsKey(clave) Then
+                            DiccionarioParametros.Add(clave, valor)
+                        End If
+                    End If
+                Next
+            End If
+        Else
+            SELECCION = CADENA_LISTAS
+        End If
+
         '///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         '///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         '///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5679,6 +5714,15 @@ SALIR:
             Call PROCESO_IMRPIMIR()
             GoTo SALTO
         End If
+        If NOMBRE_REPORTE = "S0015 - Indicadores de < Asistencia por Situacion de Personal >" Then
+            SELECCION_PARAMETRO = "*"
+            USUARIO_IMPRIME = isuCUENTA
+            NOMBRE_DEL_REPORTE_CR = "SPYCS115.rpt"
+            'NOMBRE_DEL_REPORTE_EX = "SPYCS113x.rpt"
+            PARAMETRO = 156
+            Call PROCESO_IMRPIMIR()
+            GoTo SALTO
+        End If
         '///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         '///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         '///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5714,7 +5758,7 @@ SALTO:
                     VALOR02 = MiDataTable.Rows(0).Item(5).ToString & " " & MiDataTable.Rows(0).Item(6).ToString
                     VALOR04 = Mid(Me.DateTimePicker1.Value, 1, 10)
                     VALOR05 = Mid(Me.DateTimePicker2.Value, 1, 10)
-                    Call BUSCAR_CARGO_ACTUAL
+                    Call BUSCAR_CARGO_ACTUAL()
                 End If
 
                 If ACTIVO = 2 Then  'NO ACTIVO
@@ -6271,5 +6315,132 @@ SALIR:
             Me.TextBox1.SelectAll()
             Me.TextBox1.Focus()
         End If
+    End Sub
+    ' Método para activar o desactivar componentes
+    Private Sub ConfigurarComponentes(activar As Boolean)
+        Dim valorSeleccionado As String = If(ComboBoxFiltroBusquedaSP.SelectedItem IsNot Nothing, ComboBoxFiltroBusquedaSP.SelectedItem.ToString(), String.Empty)
+
+        ComboBox29.Enabled = activar
+        Button27.Enabled = activar
+        ComboBox30.Enabled = activar
+        Button28.Enabled = activar
+        ComboBoxFiltroBusquedaSP.Enabled = If(valorSeleccionado = "Específico", True, Not activar)
+        GroupBox2.Enabled = True
+        DateTimePicker3.Enabled = True
+        DateTimePicker4.Enabled = True
+        Button29.Enabled = True
+        Button2.Enabled = True
+
+    End Sub
+
+    ' Método para agregar elementos únicos al ComboBox
+    Private Sub AgregarItemsComboBoxFiltroBusquedaSP()
+        Dim items As String() = {"Consolidado Jerárquico", "Detallado Por Empleado", "Específico"}
+        For Each item As String In items
+            If Not ComboBoxFiltroBusquedaSP.Items.Contains(item) Then
+                ComboBoxFiltroBusquedaSP.Items.Add(item)
+            End If
+        Next
+
+        ' Seleccionar el primer ítem si no hay ninguno seleccionado
+        If ComboBoxFiltroBusquedaSP.SelectedIndex = -1 Then
+            ComboBoxFiltroBusquedaSP.SelectedIndex = 0
+        End If
+    End Sub
+
+    Private Sub TabControl1_Click(sender As Object, e As EventArgs) Handles TabControl1.Click
+        ' Texto esperado y valor seleccionado
+        Dim textoEsperado As String = "S0015 - Indicadores de < Asistencia por Situacion de Personal >"
+        Dim valorSeleccionado As String = If(ListBox7.SelectedItem IsNot Nothing, ListBox7.SelectedItem.ToString(), String.Empty)
+
+        If TabControl1.SelectedTab.Text = "Filtro 2" AndAlso valorSeleccionado = textoEsperado Then
+            ConfigurarComponentes(False) ' Desactiva los componentes excepto ComboBoxFiltroBusquedaSP
+            ComboBoxFiltroBusquedaSP.Enabled = True
+            AgregarItemsComboBoxFiltroBusquedaSP()
+        Else
+            ConfigurarComponentes(True) ' Activa los componentes
+        End If
+    End Sub
+
+    Private Sub ComboBoxFiltroBusquedaSP_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxFiltroBusquedaSP.SelectedIndexChanged
+        Dim textoEsperado As String = "S0015 - Indicadores de < Asistencia por Situacion de Personal >"
+        Dim valorSeleccionado As String = If(ListBox7.SelectedItem IsNot Nothing, ListBox7.SelectedItem.ToString(), String.Empty)
+
+        If ComboBoxFiltroBusquedaSP.SelectedItem IsNot Nothing AndAlso valorSeleccionado = textoEsperado Then
+            If ComboBoxFiltroBusquedaSP.SelectedItem.ToString() = "Específico" Then
+                ConfigurarComponentes(True) ' Activa los componentes
+            Else
+                ConfigurarComponentes(False) ' Desactiva los componentes
+            End If
+        Else
+            'ComboBoxFiltroBusquedaSP.Items.Clear()
+            ConfigurarComponentes(True) ' Activa los componentes como fallback
+        End If
+    End Sub
+
+    Private Sub ListBox7_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox7.SelectedIndexChanged
+        Dim textoEsperado As String = "S0015 - Indicadores de < Asistencia por Situacion de Personal >"
+        Dim valorSeleccionado As String = If(ListBox7.SelectedItem IsNot Nothing, ListBox7.SelectedItem.ToString(), String.Empty)
+
+        If valorSeleccionado = textoEsperado Then
+            ConfigurarComponentes(False) ' Desactiva los componentes excepto ComboBoxFiltroBusquedaSP
+            ComboBoxFiltroBusquedaSP.Enabled = True
+
+            ComboBoxFiltroBusquedaSP.Items.Clear()
+            AgregarItemsComboBoxFiltroBusquedaSP()
+
+            ComboBoxFiltroBusquedaSP.Refresh()
+        Else
+            ' Limpia el ComboBox completamente
+            ComboBoxFiltroBusquedaSP.Items.Clear()
+            ComboBoxFiltroBusquedaSP.Text = String.Empty
+            ComboBoxFiltroBusquedaSP.SelectedIndex = -1
+
+            ' Refresca el control
+            ComboBoxFiltroBusquedaSP.Refresh()
+
+            ConfigurarComponentes(True)
+        End If
+    End Sub
+
+
+    Private Sub Button30_Click(sender As Object, e As EventArgs) Handles Button30.Click
+        If Me.ComboBoxFiltroBusquedaSP.SelectedItem <> "" Then
+            Me.Lista_Principal.Items.Add("Filtro_Situacion: " & Me.ComboBoxFiltroBusquedaSP.Text)
+
+            If CODIGO_REPORTE = "S0015" Then
+                ' Verifica si se ha seleccionado un filtro adicional
+                Dim valorSeleccionado As String = If(ComboBoxFiltroBusquedaSP.SelectedItem IsNot Nothing, ComboBoxFiltroBusquedaSP.SelectedItem.ToString(), "Ninguno")
+
+                ' Definir la condición SQL global que se utilizará para la consulta
+                Dim sqlCondition As String = ""
+                ' Si se seleccionó un filtro específico, por ejemplo, Consolidado Jerárquico
+                If valorSeleccionado = "Consolidado Jerárquico" Then
+                    sqlCondition = "Consolidado"
+                Else
+                    sqlCondition = "Detallado"
+                End If
+
+                ' Verificar si "SituacionAusenteSP: 8,7,10,14,17,12,25" ya existe en la lista
+                Dim condicionEspecifica As String = "SituacionAusenteSP: 8,7,10,14,17,12,25"
+                If Not Me.ListaCondiconalesFiltroBusqueda.Items.Contains(condicionEspecifica) Then
+                    ' Si no existe, agregar la condición
+                    Me.ListaCondiconalesFiltroBusqueda.Items.Add(condicionEspecifica)
+                End If
+
+                ' Agregar la condición construida a la lista de condiciones
+                If Not Me.ListaCondiconalesFiltroBusqueda.Items.Contains(sqlCondition) Then
+                    Me.ListaCondiconalesFiltroBusqueda.Items.Add(sqlCondition)
+                End If
+
+                ' Aquí puedes incluir el salto o finalizar el código para evitar errores adicionales
+                GoTo SALIR
+            End If
+        Else
+            MsgBox("La Selección para el Tipo de Situación no es válida", vbInformation, "Mensaje del Sistema")
+            Me.ComboBox29.Focus()
+            Exit Sub
+        End If
+SALIR:
     End Sub
 End Class

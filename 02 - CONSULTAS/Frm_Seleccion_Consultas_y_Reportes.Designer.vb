@@ -208,6 +208,9 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.TabPage9 = New System.Windows.Forms.TabPage()
         Me.TabPage10 = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.Button30 = New System.Windows.Forms.Button()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.ComboBoxFiltroBusquedaSP = New System.Windows.Forms.ComboBox()
         Me.Label42 = New System.Windows.Forms.Label()
         Me.Button29 = New System.Windows.Forms.Button()
         Me.Label40 = New System.Windows.Forms.Label()
@@ -238,6 +241,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.Lista141 = New System.Windows.Forms.ListBox()
         Me.Lista143 = New System.Windows.Forms.ListBox()
         Me.Lista142 = New System.Windows.Forms.ListBox()
+        Me.ListaCondiconalesFiltroBusqueda = New System.Windows.Forms.ListBox()
         Me.TabControl.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -2531,6 +2535,9 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         '
         'GroupBox11
         '
+        Me.GroupBox11.Controls.Add(Me.Button30)
+        Me.GroupBox11.Controls.Add(Me.Label43)
+        Me.GroupBox11.Controls.Add(Me.ComboBoxFiltroBusquedaSP)
         Me.GroupBox11.Controls.Add(Me.Label42)
         Me.GroupBox11.Controls.Add(Me.Button29)
         Me.GroupBox11.Controls.Add(Me.Label40)
@@ -2547,17 +2554,47 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.GroupBox11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.GroupBox11.Location = New System.Drawing.Point(373, 69)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(366, 85)
+        Me.GroupBox11.Size = New System.Drawing.Size(366, 120)
         Me.GroupBox11.TabIndex = 72
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Situaciones de Empleados"
+        '
+        'Button30
+        '
+        Me.Button30.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button30.ForeColor = System.Drawing.Color.Blue
+        Me.Button30.Location = New System.Drawing.Point(335, 16)
+        Me.Button30.Name = "Button30"
+        Me.Button30.Size = New System.Drawing.Size(28, 20)
+        Me.Button30.TabIndex = 92
+        Me.Button30.Tag = "9999"
+        Me.Button30.Text = ">"
+        Me.Button30.UseCompatibleTextRendering = True
+        Me.Button30.UseVisualStyleBackColor = True
+        '
+        'Label43
+        '
+        Me.Label43.AutoSize = True
+        Me.Label43.Location = New System.Drawing.Point(8, 19)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(99, 13)
+        Me.Label43.TabIndex = 91
+        Me.Label43.Text = "Filtro Busqueda:"
+        '
+        'ComboBoxFiltroBusquedaSP
+        '
+        Me.ComboBoxFiltroBusquedaSP.FormattingEnabled = True
+        Me.ComboBoxFiltroBusquedaSP.Location = New System.Drawing.Point(113, 15)
+        Me.ComboBoxFiltroBusquedaSP.Name = "ComboBoxFiltroBusquedaSP"
+        Me.ComboBoxFiltroBusquedaSP.Size = New System.Drawing.Size(220, 21)
+        Me.ComboBoxFiltroBusquedaSP.TabIndex = 90
         '
         'Label42
         '
         Me.Label42.AutoSize = True
         Me.Label42.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label42.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label42.Location = New System.Drawing.Point(6, 63)
+        Me.Label42.Location = New System.Drawing.Point(6, 89)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(98, 13)
         Me.Label42.TabIndex = 89
@@ -2567,7 +2604,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         '
         Me.Button29.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button29.ForeColor = System.Drawing.Color.Blue
-        Me.Button29.Location = New System.Drawing.Point(335, 59)
+        Me.Button29.Location = New System.Drawing.Point(335, 85)
         Me.Button29.Name = "Button29"
         Me.Button29.Size = New System.Drawing.Size(28, 20)
         Me.Button29.TabIndex = 88
@@ -2581,7 +2618,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.Label40.AutoSize = True
         Me.Label40.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label40.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label40.Location = New System.Drawing.Point(101, 63)
+        Me.Label40.Location = New System.Drawing.Point(101, 89)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(38, 13)
         Me.Label40.TabIndex = 84
@@ -2591,7 +2628,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         '
         Me.DateTimePicker4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker4.Location = New System.Drawing.Point(257, 59)
+        Me.DateTimePicker4.Location = New System.Drawing.Point(257, 85)
         Me.DateTimePicker4.Name = "DateTimePicker4"
         Me.DateTimePicker4.Size = New System.Drawing.Size(76, 20)
         Me.DateTimePicker4.TabIndex = 87
@@ -2600,7 +2637,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         '
         Me.DateTimePicker3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker3.Location = New System.Drawing.Point(142, 59)
+        Me.DateTimePicker3.Location = New System.Drawing.Point(142, 85)
         Me.DateTimePicker3.Name = "DateTimePicker3"
         Me.DateTimePicker3.Size = New System.Drawing.Size(76, 20)
         Me.DateTimePicker3.TabIndex = 85
@@ -2610,7 +2647,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.Label41.AutoSize = True
         Me.Label41.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label41.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label41.Location = New System.Drawing.Point(221, 62)
+        Me.Label41.Location = New System.Drawing.Point(221, 88)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(35, 13)
         Me.Label41.TabIndex = 86
@@ -2620,7 +2657,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         '
         Me.Button27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button27.ForeColor = System.Drawing.Color.Blue
-        Me.Button27.Location = New System.Drawing.Point(335, 14)
+        Me.Button27.Location = New System.Drawing.Point(335, 40)
         Me.Button27.Name = "Button27"
         Me.Button27.Size = New System.Drawing.Size(28, 20)
         Me.Button27.TabIndex = 83
@@ -2633,7 +2670,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         '
         Me.Button28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button28.ForeColor = System.Drawing.Color.Blue
-        Me.Button28.Location = New System.Drawing.Point(335, 36)
+        Me.Button28.Location = New System.Drawing.Point(335, 62)
         Me.Button28.Name = "Button28"
         Me.Button28.Size = New System.Drawing.Size(28, 20)
         Me.Button28.TabIndex = 82
@@ -2648,7 +2685,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.ComboBox29.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox29.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox29.FormattingEnabled = True
-        Me.ComboBox29.Location = New System.Drawing.Point(97, 14)
+        Me.ComboBox29.Location = New System.Drawing.Point(97, 40)
         Me.ComboBox29.MaxDropDownItems = 20
         Me.ComboBox29.Name = "ComboBox29"
         Me.ComboBox29.Size = New System.Drawing.Size(236, 21)
@@ -2659,7 +2696,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.Label38.AutoSize = True
         Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label38.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label38.Location = New System.Drawing.Point(6, 19)
+        Me.Label38.Location = New System.Drawing.Point(6, 45)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(93, 13)
         Me.Label38.TabIndex = 77
@@ -2671,7 +2708,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.ComboBox30.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox30.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox30.FormattingEnabled = True
-        Me.ComboBox30.Location = New System.Drawing.Point(97, 36)
+        Me.ComboBox30.Location = New System.Drawing.Point(97, 62)
         Me.ComboBox30.MaxDropDownItems = 20
         Me.ComboBox30.Name = "ComboBox30"
         Me.ComboBox30.Size = New System.Drawing.Size(236, 21)
@@ -2682,7 +2719,7 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.Label39.AutoSize = True
         Me.Label39.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label39.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label39.Location = New System.Drawing.Point(6, 41)
+        Me.Label39.Location = New System.Drawing.Point(6, 67)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(54, 13)
         Me.Label39.TabIndex = 5
@@ -2924,11 +2961,24 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
         Me.Lista142.TabIndex = 1046
         Me.Lista142.Visible = False
         '
+        'ListaCondiconalesFiltroBusqueda
+        '
+        Me.ListaCondiconalesFiltroBusqueda.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.ListaCondiconalesFiltroBusqueda.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ListaCondiconalesFiltroBusqueda.FormattingEnabled = True
+        Me.ListaCondiconalesFiltroBusqueda.ItemHeight = 12
+        Me.ListaCondiconalesFiltroBusqueda.Location = New System.Drawing.Point(968, 342)
+        Me.ListaCondiconalesFiltroBusqueda.Name = "ListaCondiconalesFiltroBusqueda"
+        Me.ListaCondiconalesFiltroBusqueda.Size = New System.Drawing.Size(203, 16)
+        Me.ListaCondiconalesFiltroBusqueda.TabIndex = 1048
+        Me.ListaCondiconalesFiltroBusqueda.Visible = False
+        '
         'Frm_Seleccion_Consultas_y_Reportes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1183, 703)
+        Me.Controls.Add(Me.ListaCondiconalesFiltroBusqueda)
         Me.Controls.Add(Me.Lista143)
         Me.Controls.Add(Me.Lista142)
         Me.Controls.Add(Me.Lista141)
@@ -3243,4 +3293,8 @@ Partial Class Frm_Seleccion_Consultas_y_Reportes
     Friend WithEvents Lista143 As ListBox
     Friend WithEvents Lista142 As ListBox
     Friend WithEvents CheckBox8 As CheckBox
+    Friend WithEvents Label43 As Label
+    Friend WithEvents ComboBoxFiltroBusquedaSP As ComboBox
+    Friend WithEvents Button30 As Button
+    Friend WithEvents ListaCondiconalesFiltroBusqueda As ListBox
 End Class
