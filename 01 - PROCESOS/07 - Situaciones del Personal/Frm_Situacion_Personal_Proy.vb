@@ -88,7 +88,7 @@ Public Class Frm_Situacion_Personal_Proy
 
         Me.DGV.Columns(1).HeaderText = "Id"
         Me.DGV.Columns(1).Width = 30
-        Me.DGV.Columns(1).Visible = True
+        Me.DGV.Columns(1).Visible = False
         Me.DGV.Columns(1).HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
         Me.DGV.Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         Me.DGV.Columns(1).DefaultCellStyle.BackColor = Color.Black
@@ -334,7 +334,7 @@ Public Class Frm_Situacion_Personal_Proy
                             "VALOR_SIT = @VALOR_SIT, VALOR_DIA = @VALOR_DIA, OBSERVACIONES = @OBSERVACIONES, " &
                             "DETALLE_1 = @DETALLE_1, DETALLE_2 = @DETALLE_2, DETALLE_3 = @DETALLE_3, " &
                             "USUARIO_ACT = @USUARIO_ACT, FECHA_ACT = @FECHA_ACT " &
-                            "WHERE DIA = @DIA"
+                            "WHERE DIA = @DIA AND ID_M_P = @ID_M_P"
 
                         Using cmdUpdate As New SqlCommand(updateQuery, Conexion.CxRRHH, transaction)
                             cmdUpdate.Parameters.AddWithValue("@ID_M_P", row("ID_M_P"))
