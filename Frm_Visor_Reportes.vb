@@ -13,7 +13,8 @@ Public Class Frm_Visor_Reportes
     Dim PathRPT As String
     'ULTIMO 155
     Private Sub MOSTRAR_REPORTE_CRYSTAL()
-        PathRPT = "\\Hmil-spc-apprd\e$\v3 SPYC\Reportes\"
+        'PathRPT = "\\Hmil-spc-apprd\e$\v3 SPYC\Reportes\"
+        PathRPT = "C:\Users\ronny.calero\Desktop\2024\DESARROLLO\SISTEMAS_DESARROLLO\PROYECTO RRHH\Proyecto_RRHH_APP_Escritorio\02 - CONSULTAS\01 - Reportes\"
         Dim CR As New ReportDocument
         '------------------------------------------------------------------------------
         'SELECCION_PARAMETRO = FILTRO_SELECCION_EN_REPORTES
@@ -658,28 +659,46 @@ Public Class Frm_Visor_Reportes
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
             Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17   'SALARIO LETRAS'
+
+            Dim V18 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR18 Then
+                V18.Value = "True"
+            Else
+                V18.Value = "False"
+            End If
+
+
+            Dim V19 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR19 Then
+                V19.Value = "True"
+            Else
+                V19.Value = "False"
+            End If
+
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
-            RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V03) : CR.DataDefinition.ParameterFields("p03").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V04) : CR.DataDefinition.ParameterFields("p04").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V05) : CR.DataDefinition.ParameterFields("p05").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V06) : CR.DataDefinition.ParameterFields("p06").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V07) : CR.DataDefinition.ParameterFields("p07").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V09) : CR.DataDefinition.ParameterFields("p09").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V10) : CR.DataDefinition.ParameterFields("p10").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V11) : CR.DataDefinition.ParameterFields("p11").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V12) : CR.DataDefinition.ParameterFields("p12").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V13) : CR.DataDefinition.ParameterFields("p13").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V14) : CR.DataDefinition.ParameterFields("p14").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V03) : CR.DataDefinition.ParameterFields("p03").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V04) : CR.DataDefinition.ParameterFields("p04").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V05) : CR.DataDefinition.ParameterFields("p05").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V06) : CR.DataDefinition.ParameterFields("p06").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V07) : CR.DataDefinition.ParameterFields("p07").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V09) : CR.DataDefinition.ParameterFields("p09").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V10) : CR.DataDefinition.ParameterFields("p10").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V11) : CR.DataDefinition.ParameterFields("p11").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V12) : CR.DataDefinition.ParameterFields("p12").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V13) : CR.DataDefinition.ParameterFields("p13").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V14) : CR.DataDefinition.ParameterFields("p14").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
+                RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
+            RpDatos.Add(V18) : CR.DataDefinition.ParameterFields("p18").ApplyCurrentValues(RpDatos)
+
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
-            GoTo SALTO
-        End If
-        If PARAMETRO = 131 Then
+                GoTo SALTO
+            End If
+            If PARAMETRO = 131 Then
             rptlocation = PathRPT & "SPYCE109.rpt"
             CR.Load(rptlocation)
             Dim RpDatos As New CrystalDecisions.Shared.ParameterValues()
@@ -699,6 +718,22 @@ Public Class Frm_Visor_Reportes
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
             Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17  'A QUIEN DIRIGE'
+
+            Dim V18 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR18 Then
+                V18.Value = "True"
+            Else
+                V18.Value = "False"
+            End If
+
+
+            Dim V19 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR19 Then
+                V19.Value = "True"
+            Else
+                V19.Value = "False"
+            End If
+
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
             RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
@@ -716,6 +751,9 @@ Public Class Frm_Visor_Reportes
             RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
+            'CAMBIO DE IMAGEN DINAMICA
+            RpDatos.Add(V18) : CR.DataDefinition.ParameterFields("p18").ApplyCurrentValues(RpDatos)
+
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
             GoTo SALTO
@@ -740,6 +778,22 @@ Public Class Frm_Visor_Reportes
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
             Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17  'A QUIEN DIRIGE'
+
+            Dim V18 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR18 Then
+                V18.Value = "True"
+            Else
+                V18.Value = "False"
+            End If
+
+
+            Dim V19 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR19 Then
+                V19.Value = "True"
+            Else
+                V19.Value = "False"
+            End If
+
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
             RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
@@ -757,6 +811,9 @@ Public Class Frm_Visor_Reportes
             RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
+            'CAMBIO DE IMAGEN DINAMICA
+            RpDatos.Add(V18) : CR.DataDefinition.ParameterFields("p18").ApplyCurrentValues(RpDatos)
+
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
             GoTo SALTO
@@ -781,6 +838,22 @@ Public Class Frm_Visor_Reportes
             Dim V15 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V15.Value = VALOR15   'TITULO FIRMA
             Dim V16 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V16.Value = VALOR16   'SALARIO LETRAS
             Dim V17 As New CrystalDecisions.Shared.ParameterDiscreteValue() : V17.Value = VALOR17   'A QUIEN DIRIGE'
+
+            Dim V18 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR18 Then
+                V18.Value = "True"
+            Else
+                V18.Value = "False"
+            End If
+
+
+            Dim V19 As New CrystalDecisions.Shared.ParameterDiscreteValue()
+            If VALOR19 Then
+                V19.Value = "True"
+            Else
+                V19.Value = "False"
+            End If
+
             If SELECCION = "" Then : CR.RecordSelectionFormula = "" : Else : CR.RecordSelectionFormula = SELECCION : End If
             RpDatos.Add(V01) : CR.DataDefinition.ParameterFields("p01").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V02) : CR.DataDefinition.ParameterFields("p02").ApplyCurrentValues(RpDatos)
@@ -797,7 +870,11 @@ Public Class Frm_Visor_Reportes
             RpDatos.Add(V14) : CR.DataDefinition.ParameterFields("p14").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V15) : CR.DataDefinition.ParameterFields("p15").ApplyCurrentValues(RpDatos)
             RpDatos.Add(V16) : CR.DataDefinition.ParameterFields("p16").ApplyCurrentValues(RpDatos)
-            RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
+            RpDatos.Add(V17) : CR.DataDefinition.ParameterFields("p18").ApplyCurrentValues(RpDatos)
+
+            'CAMBIO DE IMAGEN DINAMICA
+            RpDatos.Add(V18) : CR.DataDefinition.ParameterFields("p17").ApplyCurrentValues(RpDatos)
+
             CR.SetDatabaseLogon("sa", "P@$$W0RD")
             CrystalR.ReportSource = CR
             GoTo SALTO

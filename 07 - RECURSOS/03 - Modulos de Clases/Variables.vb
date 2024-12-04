@@ -104,6 +104,10 @@ Module Variables
     Public VALOR16 As String
     Public VALOR17 As String
 
+    'Imagen dinamica
+    Public VALOR18 As Boolean
+    Public VALOR19 As Boolean
+
     Public vIP As String
 
     Public CADENAsqlCombo As String
