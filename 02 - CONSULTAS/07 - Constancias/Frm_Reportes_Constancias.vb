@@ -678,17 +678,28 @@ DEPARTAMENTO:
             VALOR15 = Me.CheckBox1.Text 'CARGO JEFE 
             VALOR17 = $"El suscrito {Me.CheckBox1.Text} del Hospital Militar, hace constar:"
 
+            VALOR18 = True ' Indica que el CheckBox1 está seleccionado
+            VALOR19 = False ' Asegura que otros CheckBoxes no están activos
+
         ElseIf Me.CheckBox2.Checked = True Then
             VALOR09 = Me.TextBox13.Text 'GRADO 1ER OFICIAL
             VALOR10 = Me.TextBox14.Text 'NOMBRES Y APELLIDOS 1ER OFICIAL
             VALOR15 = Me.CheckBox2.Text 'CARGO 1ER OFICIAL
-            VALOR17 = $"El suscrito {Me.CheckBox2.Text} del Hospital Militar, hace constar:"
+            VALOR17 = $"La suscrita {Me.CheckBox2.Text} del Hospital Militar, hace constar:"
+
+            VALOR18 = False ' Asegura que no es el CheckBox1
+            VALOR19 = True ' Indica que el CheckBox2 está seleccionado
+
         Else
             VALOR09 = Me.TextBox8.Text 'GRADO JEFE
             VALOR10 = Me.TextBox16.Text 'NOMBRES Y APELLIDOS JEFE
             VALOR15 = Me.CheckBox3.Text 'CARGO JEFE
 
             VALOR17 = $"La suscrita {Me.CheckBox3.Text} del Hospital Militar, hace constar:"
+
+            VALOR18 = False ' Asegura que no es el CheckBox1
+            VALOR19 = True ' Indica que el CheckBox3 está seleccionado
+
         End If
         VALOR11 = Me.TextBox7.Text      'ASUNTO
         VALOR12 = Me.TextBox15.Text     'FECHA EN LETRAS
