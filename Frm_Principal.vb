@@ -294,6 +294,23 @@ Public Class Frm_Principal
         Frm_Becados.Show(Me)
         Me.Timer1.Start()
     End Sub
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button1.Click, Button10.Click
+        Call VERIFICAR_ACCESOS("376") : If HAY_ACCESO = False Then : Exit Sub : End If
+        Me.Cursor = Cursors.WaitCursor
+        If BECADOS = True Then
+            tmOCULTAR.Enabled = True
+            Me.Timer1.Stop()
+            Frm_Marcas.WindowState = FormWindowState.Normal
+            Me.Timer1.Start()
+            Me.Cursor = Cursors.Default
+            Exit Sub
+        End If
+        Me.Cursor = Cursors.Default
+        tmOCULTAR.Enabled = True
+        Me.Timer1.Stop()
+        Frm_Marcas.Show(Me)
+        Me.Timer1.Start()
+    End Sub
     'CONSULTAS --------------------------------------------------
     'Selección de Consultas y Reportes
     Private Sub button01B_Click(sender As Object, e As EventArgs) Handles button01B.Click

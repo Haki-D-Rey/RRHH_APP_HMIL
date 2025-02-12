@@ -14,7 +14,7 @@ Option Explicit On
 
 Namespace My
     
-    'NOTA: este archivo se genera de forma automática; no lo modifique directamente. Para realizar cambios,
+    'NOTA: Este archivo se genera automáticamente; no lo modifique directamente.  Para hacer cambios,
     ' o si detecta errores de compilación en este archivo, vaya al Diseñador de proyectos
     ' (vaya a Propiedades del proyecto o haga doble clic en el nodo My Project en el
     ' Explorador de soluciones) y realice cambios en la pestaña Aplicación.
@@ -23,7 +23,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Public Sub New()
-            MyBase.New(Global.Microsoft.VisualBasic.ApplicationServices.AuthenticationMode.Windows)
+            MyBase.New(Global.Microsoft.VisualBasic.ApplicationServices.AuthenticationMode.ApplicationDefined)
             Me.IsSingleInstance = false
             Me.EnableVisualStyles = true
             Me.SaveMySettingsOnExit = true
@@ -34,5 +34,11 @@ Namespace My
         Protected Overrides Sub OnCreateMainForm()
             Me.MainForm = Global.SPYC3.Frm_Principal
         End Sub
+        
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+        Protected Overrides Function OnInitialize(ByVal commandLineArgs As System.Collections.ObjectModel.ReadOnlyCollection(Of String)) As Boolean
+            Me.MinimumSplashScreenDisplayTime = 0
+            Return MyBase.OnInitialize(commandLineArgs)
+        End Function
     End Class
 End Namespace

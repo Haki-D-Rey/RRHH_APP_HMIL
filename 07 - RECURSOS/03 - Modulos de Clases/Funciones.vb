@@ -20,8 +20,8 @@ Module Funciones
                 HAY_ACCESO = True
             Else
                 HAY_ACCESO = False
-                'MsgBox("El Usuario Actual no tiene Acceso a esta Opción [" & MiDataTable.Rows(0).Item(4).ToString & "] " & MiDataTable.Rows(0).Item(1).ToString, vbInformation, "Mensaje del Sistema")
-                MsgBox("El Usuario Actual no tiene Acceso a esta Opción", vbInformation, "Mensaje del Sistema")
+                'MsgBox("El Usuario Actual no tiene Acceso a esta Opciï¿½n [" & MiDataTable.Rows(0).Item(4).ToString & "] " & MiDataTable.Rows(0).Item(1).ToString, vbInformation, "Mensaje del Sistema")
+                MsgBox("El Usuario Actual no tiene Acceso a esta Opciï¿½n", vbInformation, "Mensaje del Sistema")
             End If
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, vbInformation, "Mensaje del Sistema")
@@ -68,7 +68,7 @@ Module Funciones
         If cifra = "0" Then
             Return IIf(decimales = "00", "cero", "cero con " & decimales & "/100")
         End If
-        'Evaluo su longitud (como mínimo una cadena debe tener 3 dígitos)
+        'Evaluo su longitud (como mï¿½nimo una cadena debe tener 3 dï¿½gitos)
         If Len(cifra) < 3 Then
             cifra = RELLENAR(cifra, 3)
         End If
@@ -80,20 +80,20 @@ Module Funciones
         cadena = ""
         'Selecciono bloques de a tres cifras empezando desde el final (de la cadena invertida)
         Do While posision <= Len(cifra)
-            ' Selecciono una porción del numero
+            ' Selecciono una porciï¿½n del numero
             bloque = Mid(cifra, posision, 3)
-            ' Transformo el número a cadena
+            ' Transformo el nï¿½mero a cadena
             cadena = CONVERTIR_CONSTANCIAS(bloque, unidadmil) & " " & cadena.Trim
             ' Incremento la cantidad desde donde seleccionar la subcadena
             posision = posision + 3
-            ' Incremento la posisión de la unidad de mil
+            ' Incremento la posisiï¿½n de la unidad de mil
             unidadmil = unidadmil + 1
         Loop
-        ' Cargo la función
+        ' Cargo la funciï¿½n
         Return IIf(decimales = "00", cadena.Trim.ToLower & " cordobas netos", cadena.Trim.ToLower & " cordobas con " & decimales & "/100")
     End Function
-    ' Esta función es complemento de la función de conversión.
-    ' En los arrays se agrega una posisión inicial vacía ya que VB.NET empieza de la posisión cero
+    ' Esta funciï¿½n es complemento de la funciï¿½n de conversiï¿½n.
+    ' En los arrays se agrega una posisiï¿½n inicial vacï¿½a ya que VB.NET empieza de la posisiï¿½n cero
     Private Function CONVERTIR_CONSTANCIAS(ByVal cadena As String, ByVal unidadmil As Byte) As String
         'Defino variables
         Dim centena, decena, unidad As Byte
@@ -103,11 +103,11 @@ Module Funciones
         If Len(cadena) < 3 Then
             cadena = RELLENAR(cadena, 3)
         End If
-        ' Verifico que la cadena no esté vacía (000)
+        ' Verifico que la cadena no estï¿½ vacï¿½a (000)
         If cadena = "000" Then
             Return ""
         End If
-        ' Desarmo el numero (empiezo del dígito cero por el manejo de cadenas de VB.NET)
+        ' Desarmo el numero (empiezo del dï¿½gito cero por el manejo de cadenas de VB.NET)
         centena = CType(cadena.Substring(0, 1), Byte)
         decena = CType(cadena.Substring(1, 1), Byte)
         unidad = CType(cadena.Substring(2, 1), Byte)
@@ -136,16 +136,16 @@ Module Funciones
         End If
         ' Evaluo la posision de miles, millones, etc
         If unidadmil <> 0 Then
-            Dim agregado() As String = {"", "mil", IIf((centena = 0) And (decena = 0) And (unidad = 1), "millón", "millones"), "mil millones", "billones", "mil billones"}
+            Dim agregado() As String = {"", "mil", IIf((centena = 0) And (decena = 0) And (unidad = 1), "millï¿½n", "millones"), "mil millones", "billones", "mil billones"}
             If (centena = 0) And (decena = 0) And (unidad = 1) And unidadmil = 2 Then
                 cadena = "un"
             End If
             cadena = cadena & " " & agregado(unidadmil)
         End If
-        ' Cargo la función
+        ' Cargo la funciï¿½n
         Return cadena.Trim
     End Function
-    ' Esta función recibe una cadena de caracteres y la devuelve "invertida".
+    ' Esta funciï¿½n recibe una cadena de caracteres y la devuelve "invertida".
     'Dim retornar As String
     Public Function INVERTIR(ByVal cadena As String) As String
         ' Defino variables
@@ -157,7 +157,7 @@ Module Funciones
         ' Retorno la cadena invertida
         Return retornar
     End Function
-    ' Esta función rellena con ceros a la izquierda un número pasado como parámetro. Con el parámetro "cifras" se especifica la cantidad de dígitos a la izquierda.
+    ' Esta funciï¿½n rellena con ceros a la izquierda un nï¿½mero pasado como parï¿½metro. Con el parï¿½metro "cifras" se especifica la cantidad de dï¿½gitos a la izquierda.
     Public Function RELLENAR(ByVal valor As Object, ByVal cifras As Byte) As String
         ' Defino variables
         Dim cadena As String
@@ -169,11 +169,11 @@ Module Funciones
         End If
         ' Cargo la cadena
         cadena = valor.ToString.Trim
-        ' Relleno con los ceros que sean necesarios para llenar los dígitos pedidos
+        ' Relleno con los ceros que sean necesarios para llenar los dï¿½gitos pedidos
         For puntero As Byte = (Len(cadena) + 1) To cifras
             cadena = "0" & cadena
         Next puntero
-        ' Cargo la función
+        ' Cargo la funciï¿½n
         Return cadena
     End Function
     Public TITULO_EXCEL As String
@@ -204,7 +204,7 @@ Module Funciones
             Dim cod_letra As Byte = Asc(primeraLetra) - 1
             Dim sepDec As String = Application.CurrentCulture.NumberFormat.NumberDecimalSeparator
             Dim sepMil As String = Application.CurrentCulture.NumberFormat.NumberGroupSeparator
-            'Establecer formatos de las columnas de la hija de cálculo  
+            'Establecer formatos de las columnas de la hija de cï¿½lculo  
             Dim strColumna As String = ""
             Dim LetraIzq As String = ""
             Dim cod_LetraIzq As Byte = Asc(primeraLetra) - 1
@@ -258,7 +258,7 @@ Module Funciones
                             Letra = Chr(cod_letra)
                         End If
                         strColumna = LetraIzq + Letra
-                        ' acá debería realizarse la carga  
+                        ' acï¿½ deberï¿½a realizarse la carga  
                         .Cells(i, strColumna) = IIf(IsDBNull(reg.ToString), "", reg.Cells(c.Index).Value)
                         '.Cells(i, strColumna) = IIf(IsDBNull(reg.(c.DataPropertyName)), c.DefaultCellStyle.NullValue, reg(c.DataPropertyName))  
                         '.Range(strColumna + i, strColumna + i).In()  
@@ -272,7 +272,7 @@ Module Funciones
             Next
             UltimoNumero = i
 
-            'Dibujar las líneas de las columnas  
+            'Dibujar las lï¿½neas de las columnas  
             LetraIzq = ""
             cod_LetraIzq = Asc("A")
             cod_letra = Asc(primeraLetra)
@@ -317,7 +317,7 @@ Module Funciones
         If cifra = "0" Then
             Return IIf(decimales = "00", "cero", "cero con " & decimales & "/100")
         End If
-        'Evaluo su longitud (como mínimo una cadena debe tener 3 dígitos)
+        'Evaluo su longitud (como mï¿½nimo una cadena debe tener 3 dï¿½gitos)
         If Len(cifra) < 3 Then
             cifra = RELLENAR(cifra, 3)
         End If
@@ -329,20 +329,20 @@ Module Funciones
         cadena = ""
         'Selecciono bloques de a tres cifras empezando desde el final (de la cadena invertida)
         Do While posision <= Len(cifra)
-            ' Selecciono una porción del numero
+            ' Selecciono una porciï¿½n del numero
             bloque = Mid(cifra, posision, 3)
-            ' Transformo el número a cadena
+            ' Transformo el nï¿½mero a cadena
             cadena = CONVERTIR(bloque, unidadmil) & " " & cadena.Trim
             ' Incremento la cantidad desde donde seleccionar la subcadena
             posision = posision + 3
-            ' Incremento la posisión de la unidad de mil
+            ' Incremento la posisiï¿½n de la unidad de mil
             unidadmil = unidadmil + 1
         Loop
-        ' Cargo la función
+        ' Cargo la funciï¿½n
         Return IIf(decimales = "00", cadena.Trim.ToLower, cadena.Trim.ToLower & " con " & decimales & "/100")
     End Function
-    ' Esta función es complemento de la función de conversión.
-    ' En los arrays se agrega una posisión inicial vacía ya que VB.NET empieza de la posisión cero
+    ' Esta funciï¿½n es complemento de la funciï¿½n de conversiï¿½n.
+    ' En los arrays se agrega una posisiï¿½n inicial vacï¿½a ya que VB.NET empieza de la posisiï¿½n cero
     Private Function CONVERTIR(ByVal cadena As String, ByVal unidadmil As Byte) As String
         On Error GoTo MENSAJE
         'Defino variables
@@ -353,11 +353,11 @@ Module Funciones
         If Len(cadena) < 3 Then
             cadena = RELLENAR(cadena, 3)
         End If
-        ' Verifico que la cadena no esté vacía (000)
+        ' Verifico que la cadena no estï¿½ vacï¿½a (000)
         If cadena = "000" Then
             Return ""
         End If
-        ' Desarmo el numero (empiezo del dígito cero por el manejo de cadenas de VB.NET)
+        ' Desarmo el numero (empiezo del dï¿½gito cero por el manejo de cadenas de VB.NET)
         centena = CType(cadena.Substring(0, 1), Byte)
         decena = CType(cadena.Substring(1, 1), Byte)
         unidad = CType(cadena.Substring(2, 1), Byte)
@@ -386,13 +386,13 @@ Module Funciones
         End If
         ' Evaluo la posision de miles, millones, etc
         If unidadmil <> 0 Then
-            Dim agregado() As String = {"", "mil", IIf((centena = 0) And (decena = 0) And (unidad = 1), "millón", "millones"), "mil millones", "billones", "mil billones"}
+            Dim agregado() As String = {"", "mil", IIf((centena = 0) And (decena = 0) And (unidad = 1), "millï¿½n", "millones"), "mil millones", "billones", "mil billones"}
             If (centena = 0) And (decena = 0) And (unidad = 1) And unidadmil = 2 Then
                 cadena = "un"
             End If
             cadena = cadena & " " & agregado(unidadmil)
         End If
-        ' Cargo la función
+        ' Cargo la funciï¿½n
         Return cadena.Trim
         Exit Function
 MENSAJE:
@@ -425,7 +425,7 @@ MENSAJE:
             Dim cod_letra As Byte = Asc(primeraLetra) - 1
             Dim sepDec As String = Application.CurrentCulture.NumberFormat.NumberDecimalSeparator
             Dim sepMil As String = Application.CurrentCulture.NumberFormat.NumberGroupSeparator
-            'Establecer formatos de las columnas de la hija de cálculo  
+            'Establecer formatos de las columnas de la hija de cï¿½lculo  
             Dim strColumna As String = ""
             Dim LetraIzq As String = ""
             Dim cod_LetraIzq As Byte = Asc(primeraLetra) - 1
@@ -479,7 +479,7 @@ MENSAJE:
                             Letra = Chr(cod_letra)
                         End If
                         strColumna = LetraIzq + Letra
-                        ' acá debería realizarse la carga  
+                        ' acï¿½ deberï¿½a realizarse la carga  
                         .Cells(i, strColumna) = IIf(IsDBNull(reg.ToString), "", reg.Cells(c.Index).Value)
                         '.Cells(i, strColumna) = IIf(IsDBNull(reg.(c.DataPropertyName)), c.DefaultCellStyle.NullValue, reg(c.DataPropertyName))  
                         '.Range(strColumna + i, strColumna + i).In()  
@@ -493,7 +493,7 @@ MENSAJE:
             Next
             UltimoNumero = i
 
-            'Dibujar las líneas de las columnas  
+            'Dibujar las lï¿½neas de las columnas  
             LetraIzq = ""
             cod_LetraIzq = Asc("A")
             cod_letra = Asc(primeraLetra)
