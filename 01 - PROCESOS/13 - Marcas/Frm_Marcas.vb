@@ -109,25 +109,69 @@ Public Class Frm_Marcas
             Else
                 cb.SelectedIndex = 0
             End If
+
         Catch ex As Exception
             MessageBox.Show("Error al llenar el ComboBox: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-
     Private Sub ComboBox_SelectedIndexChanged(sender As Object, e As EventArgs)
         Dim comboBoxes As ComboBox() = {ComboBox1, ComboBox2, ComboBox3, ComboBox4, ComboBox5, ComboBox6, ComboBox7, ComboBox8}
         Dim checkBoxes As CheckBox() = {CheckBox1, CheckBox2, CheckBox3, CheckBox4, CheckBox5, CheckBox6, CheckBox7, CheckBox8}
 
-        ' Buscar el ComboBox que activó el evento
+        ' Identificar el ComboBox que activó el evento
         For i As Integer = 0 To comboBoxes.Length - 1
             If sender Is comboBoxes(i) Then
-                ' Habilitar el CheckBox correspondiente si la selección no es "SELECCIONE"
-                checkBoxes(i).Enabled = (comboBoxes(i).SelectedIndex > 0)
-                checkBoxes(i).Checked = (comboBoxes(i).SelectedIndex > 0)
+                ' Habilitar y marcar automáticamente el CheckBox correspondiente si la selección es válida
+                If comboBoxes(i).SelectedIndex > 0 Then
+                    checkBoxes(i).Enabled = True
+                    'checkBoxes(i).Checked = True ' 🔹 Forzar activación del CheckBox
+                Else
+                    checkBoxes(i).Enabled = False
+                    checkBoxes(i).Checked = False ' 🔹 Desmarcar si vuelve a SELECCIONE o vacío
+                End If
+
+                ' Limpiar todos los ComboBox siguientes para evitar datos erróneos
+                For j As Integer = i + 1 To comboBoxes.Length - 1
+                    comboBoxes(j).DataSource = Nothing
+                    comboBoxes(j).Items.Clear()
+                    comboBoxes(j).Enabled = False
+                Next
+
+                ' Verificar que haya un siguiente ComboBox para llenar
+                If i < comboBoxes.Length - 1 AndAlso comboBoxes(i).SelectedIndex > 0 Then
+                    Dim nivelActual As Integer = i + 1
+                    Dim nivelSiguiente As Integer = i + 2
+                    Dim tabla As String = $"dbo.[CAT DE ESTRUCTURA NIVEL {nivelSiguiente}]"
+                    Dim orderBy As String = $"ID_N{nivelSiguiente} ASC"
+
+                    Dim row As DataRowView = DirectCast(comboBoxes(i).SelectedItem, DataRowView)
+                    Dim valor = row($"ID_N{nivelActual}").ToString()
+
+                    ' Construcción de la condición WHERE
+                    Dim whereCondition As String = $"ID_N{nivelActual} = @param{nivelActual}"
+                    Dim parametros As New Dictionary(Of String, Object) From {
+                    {$"@param{nivelActual}", valor}
+                }
+
+                    ' Ejecutar la consulta solo para el siguiente nivel
+                    Dim dt As DataTable = ConsultarDatos(tabla, New List(Of String), "*", whereCondition, parametros, orderBy)
+                    checkBoxes(i).Checked = False
+                    ' Solo llenar el siguiente ComboBox si hay datos disponibles
+                    If dt.Rows.Count > 0 Then
+                        LlenarComboBox(comboBoxes(i + 1), dt, "DESCRIPCION", $"ID_N{nivelSiguiente}", False)
+                        comboBoxes(i + 1).Enabled = True
+                    Else
+                        comboBoxes(i + 1).Enabled = False
+                    End If
+                End If
+
+                ' Romper el bucle después de encontrar el ComboBox activado
+                Exit For
             End If
         Next
     End Sub
+
 
     Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs)
         Dim comboBoxes As ComboBox() = {ComboBox1, ComboBox2, ComboBox3, ComboBox4, ComboBox5, ComboBox6, ComboBox7, ComboBox8}
@@ -136,44 +180,99 @@ Public Class Frm_Marcas
 
         ' Buscar el CheckBox que activó el evento
         For i As Integer = 0 To checkBoxes.Length - 1
-            If sender Is checkBoxes(i) AndAlso checkBoxes(i).Checked Then
-                ' Obtener valores del ComboBox asociado
-                Dim valorTexto As String = ""
-                Dim valorInterno As String = ""
-                Dim valorIDN As String = keyMapping(i) ' ID_N asociado a este ComboBox
+            If sender Is checkBoxes(i) Then
+                Dim valorIDN As String = keyMapping(i) ' Clave de la estructura en el diccionario
 
-                ' Asegurar que hay un ítem seleccionado y que no sea "SELECCIONE"
-                If comboBoxes(i).SelectedItem IsNot Nothing AndAlso comboBoxes(i).SelectedIndex > 0 Then
-                    Dim row As DataRowView = DirectCast(comboBoxes(i).SelectedItem, DataRowView)
-                    valorTexto = row("DESCRIPCION").ToString()
-                    valorInterno = row("SIGLAS").ToString()
+                ' Si el CheckBox está marcado (Checked = True)
+                If checkBoxes(i).Checked Then
+                    ' Obtener valores del ComboBox asociado
+                    Dim valorTexto As String = ""
+                    Dim valorInterno As String = ""
 
-                    If valorInterno Is DBNull.Value Then
+                    ' Asegurar que hay un ítem seleccionado y que no sea "SELECCIONE"
+                    If comboBoxes(i).SelectedItem IsNot Nothing AndAlso comboBoxes(i).SelectedIndex > 0 Then
+                        Dim row As DataRowView = DirectCast(comboBoxes(i).SelectedItem, DataRowView)
+                        valorTexto = row("DESCRIPCION").ToString()
+                        valorInterno = row("SIGLAS").ToString()
+
+                        If valorInterno Is DBNull.Value Then
+                            valorInterno = "NULL"
+                        End If
+                    Else
+                        valorTexto = "SELECCIONE"
                         valorInterno = "NULL"
                     End If
-                Else
-                    valorTexto = "SELECCIONE"
-                    valorInterno = "NULL"
-                End If
 
-                ' Guardar los valores en el diccionario
-                If Not seleccionDatos.ContainsKey(valorIDN) Then
-                    seleccionDatos(valorIDN) = New Dictionary(Of String, String)
-                End If
+                    ' Guardar los valores en el diccionario
+                    If Not seleccionDatos.ContainsKey(valorIDN) Then
+                        seleccionDatos(valorIDN) = New Dictionary(Of String, String)
+                    End If
 
-                ' Guardar campo relacionado con el ComboBox
-                seleccionDatos(valorIDN)("ComboBox" & (i + 1)) = valorInterno
+                    ' Guardar campo relacionado con el ComboBox
+                    seleccionDatos(valorIDN)("ComboBox" & (i + 1)) = valorInterno
+
+                Else ' Si el CheckBox es desmarcado (Checked = False)
+                    If seleccionDatos.ContainsKey(valorIDN) AndAlso seleccionDatos(valorIDN).ContainsKey("ComboBox" & (i + 1)) Then
+                        seleccionDatos(valorIDN)("ComboBox" & (i + 1)) = "NULL" ' Actualizar a NULL
+                    End If
+                End If
 
                 ' Construir el WHERE y los parámetros después de actualizar la selección
                 Dim whereCondition As String = ConstruirWhereCondition()
                 Dim parametros As Dictionary(Of String, Object) = ConstruirParametros()
 
-
-                ' Llamar a la consulta y mostrar los resultados en DataGridView1
-                ActualizarDataGridView(whereCondition, parametros, valorInterno)
+                ' Llamar a la consulta y actualizar los resultados en DataGridView1
+                ActualizarDataGridView(whereCondition, parametros, seleccionDatos(valorIDN)("ComboBox" & (i + 1)))
             End If
         Next
     End Sub
+
+
+    'Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs)
+    '    Dim comboBoxes As ComboBox() = {ComboBox1, ComboBox2, ComboBox3, ComboBox4, ComboBox5, ComboBox6, ComboBox7, ComboBox8}
+    '    Dim checkBoxes As CheckBox() = {CheckBox1, CheckBox2, CheckBox3, CheckBox4, CheckBox5, CheckBox6, CheckBox7, CheckBox8}
+    '    Dim keyMapping As String() = {"n1.SIGLAS", "n2.SIGLAS", "n3.SIGLAS", "n4.SIGLAS", "n5.SIGLAS", "n6.SIGLAS", "n7.SIGLAS", "n8.SIGLAS"} ' Llaves dinámicas
+
+    '    ' Buscar el CheckBox que activó el evento
+    '    For i As Integer = 0 To checkBoxes.Length - 1
+    '        If sender Is checkBoxes(i) AndAlso checkBoxes(i).Checked Then
+    '            ' Obtener valores del ComboBox asociado
+    '            Dim valorTexto As String = ""
+    '            Dim valorInterno As String = ""
+    '            Dim valorIDN As String = keyMapping(i) ' ID_N asociado a este ComboBox
+
+    '            ' Asegurar que hay un ítem seleccionado y que no sea "SELECCIONE"
+    '            If comboBoxes(i).SelectedItem IsNot Nothing AndAlso comboBoxes(i).SelectedIndex > 0 Then
+    '                Dim row As DataRowView = DirectCast(comboBoxes(i).SelectedItem, DataRowView)
+    '                valorTexto = row("DESCRIPCION").ToString()
+    '                valorInterno = row("SIGLAS").ToString()
+
+    '                If valorInterno Is DBNull.Value Then
+    '                    valorInterno = "NULL"
+    '                End If
+    '            Else
+    '                valorTexto = "SELECCIONE"
+    '                valorInterno = "NULL"
+    '            End If
+
+    '            ' Guardar los valores en el diccionario
+    '            If Not seleccionDatos.ContainsKey(valorIDN) Then
+    '                seleccionDatos(valorIDN) = New Dictionary(Of String, String)
+    '            End If
+
+    '            ' Guardar campo relacionado con el ComboBox
+    '            seleccionDatos(valorIDN)("ComboBox" & (i + 1)) = valorInterno
+
+    '            ' Construir el WHERE y los parámetros después de actualizar la selección
+    '            Dim whereCondition As String = ConstruirWhereCondition()
+    '            Dim parametros As Dictionary(Of String, Object) = ConstruirParametros()
+
+
+    '            ' Llamar a la consulta y mostrar los resultados en DataGridView1
+    '            ActualizarDataGridView(whereCondition, parametros, valorInterno)
+    '        End If
+    '    Next
+    'End Sub
 
 
 
