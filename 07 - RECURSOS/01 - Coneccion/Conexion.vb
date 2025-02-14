@@ -10,7 +10,7 @@ Module Conexion
     '*********************************************************************************************************************************************************
     Public Sub ABD_TEC()
         Try
-            CxTECNOLOGIA.ConnectionString = "Data Source = 127.0.0.1; initial catalog = RRHH; user id = sa; password = Maleisho31102019"
+            CxTECNOLOGIA.ConnectionString = "Data Source = HMIL-TIN-APPPRD; initial catalog = TECNOLOGIA; user id = sa; password = P@$$W0RD"
             CxTECNOLOGIA.Open()
         Catch e As Exception
             MsgBox("Error: " & e.Message, vbInformation, "Mensaje del Sistema")
@@ -24,7 +24,7 @@ Module Conexion
     '********************************************************************************************************************************
     Public Sub ABD_RRHH()
         Try
-            CxRRHH.ConnectionString = "Data Source = 127.0.0.1; initial catalog = RRHH; user id = sa; password = Maleisho31102019;"
+            CxRRHH.ConnectionString = "Data Source = HMIL-SPC-APPPRD; initial catalog = RRHH; user id = SA; password = P@$$W0RD;"
             CxRRHH.Open()
         Catch e As Exception
             MsgBox("Error: " & e.Message, vbInformation, "Mensaje del Sistema")

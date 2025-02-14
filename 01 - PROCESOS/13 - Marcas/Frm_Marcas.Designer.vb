@@ -22,6 +22,7 @@ Partial Class Frm_Marcas
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Marcas))
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -47,7 +48,15 @@ Partial Class Frm_Marcas
         Me.CheckBox7 = New System.Windows.Forms.CheckBox()
         Me.CheckBox8 = New System.Windows.Forms.CheckBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Button8 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ComboBox1
@@ -199,9 +208,9 @@ Partial Class Frm_Marcas
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Location = New System.Drawing.Point(586, 9)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox1.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox1.TabIndex = 48
-        Me.CheckBox1.Text = "CheckBox1"
+        Me.CheckBox1.Text = "Filtrar"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'CheckBox2
@@ -209,9 +218,9 @@ Partial Class Frm_Marcas
         Me.CheckBox2.AutoSize = True
         Me.CheckBox2.Location = New System.Drawing.Point(586, 38)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox2.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox2.TabIndex = 49
-        Me.CheckBox2.Text = "CheckBox2"
+        Me.CheckBox2.Text = "Filtrar"
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'CheckBox3
@@ -219,9 +228,9 @@ Partial Class Frm_Marcas
         Me.CheckBox3.AutoSize = True
         Me.CheckBox3.Location = New System.Drawing.Point(586, 67)
         Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox3.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox3.TabIndex = 50
-        Me.CheckBox3.Text = "CheckBox3"
+        Me.CheckBox3.Text = "Filtrar"
         Me.CheckBox3.UseVisualStyleBackColor = True
         '
         'CheckBox4
@@ -229,9 +238,9 @@ Partial Class Frm_Marcas
         Me.CheckBox4.AutoSize = True
         Me.CheckBox4.Location = New System.Drawing.Point(586, 97)
         Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox4.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox4.TabIndex = 51
-        Me.CheckBox4.Text = "CheckBox4"
+        Me.CheckBox4.Text = "Filtrar"
         Me.CheckBox4.UseVisualStyleBackColor = True
         '
         'CheckBox5
@@ -239,9 +248,9 @@ Partial Class Frm_Marcas
         Me.CheckBox5.AutoSize = True
         Me.CheckBox5.Location = New System.Drawing.Point(586, 125)
         Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox5.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox5.TabIndex = 52
-        Me.CheckBox5.Text = "CheckBox5"
+        Me.CheckBox5.Text = "Filtrar"
         Me.CheckBox5.UseVisualStyleBackColor = True
         '
         'CheckBox6
@@ -249,9 +258,9 @@ Partial Class Frm_Marcas
         Me.CheckBox6.AutoSize = True
         Me.CheckBox6.Location = New System.Drawing.Point(586, 157)
         Me.CheckBox6.Name = "CheckBox6"
-        Me.CheckBox6.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox6.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox6.TabIndex = 53
-        Me.CheckBox6.Text = "CheckBox6"
+        Me.CheckBox6.Text = "Filtrar"
         Me.CheckBox6.UseVisualStyleBackColor = True
         '
         'CheckBox7
@@ -259,9 +268,9 @@ Partial Class Frm_Marcas
         Me.CheckBox7.AutoSize = True
         Me.CheckBox7.Location = New System.Drawing.Point(586, 187)
         Me.CheckBox7.Name = "CheckBox7"
-        Me.CheckBox7.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox7.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox7.TabIndex = 54
-        Me.CheckBox7.Text = "CheckBox7"
+        Me.CheckBox7.Text = "Filtrar"
         Me.CheckBox7.UseVisualStyleBackColor = True
         '
         'CheckBox8
@@ -269,9 +278,9 @@ Partial Class Frm_Marcas
         Me.CheckBox8.AutoSize = True
         Me.CheckBox8.Location = New System.Drawing.Point(586, 218)
         Me.CheckBox8.Name = "CheckBox8"
-        Me.CheckBox8.Size = New System.Drawing.Size(94, 20)
+        Me.CheckBox8.Size = New System.Drawing.Size(59, 20)
         Me.CheckBox8.TabIndex = 55
-        Me.CheckBox8.Text = "CheckBox8"
+        Me.CheckBox8.Text = "Filtrar"
         Me.CheckBox8.UseVisualStyleBackColor = True
         '
         'DataGridView1
@@ -284,11 +293,91 @@ Partial Class Frm_Marcas
         Me.DataGridView1.Size = New System.Drawing.Size(1552, 602)
         Me.DataGridView1.TabIndex = 56
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.DateTimePicker2)
+        Me.GroupBox1.Controls.Add(Me.DateTimePicker1)
+        Me.GroupBox1.Controls.Add(Me.Label9)
+        Me.GroupBox1.Controls.Add(Me.Label15)
+        Me.GroupBox1.Controls.Add(Me.Label10)
+        Me.GroupBox1.Location = New System.Drawing.Point(712, 13)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Size = New System.Drawing.Size(257, 110)
+        Me.GroupBox1.TabIndex = 58
+        Me.GroupBox1.TabStop = False
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker2.Location = New System.Drawing.Point(18, 80)
+        Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(4)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(184, 22)
+        Me.DateTimePicker2.TabIndex = 14
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(18, 37)
+        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(4)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(184, 22)
+        Me.DateTimePicker1.TabIndex = 13
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(15, 63)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(46, 16)
+        Me.Label9.TabIndex = 2
+        Me.Label9.Text = "Hasta:"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(3, 2)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(98, 13)
+        Me.Label15.TabIndex = 0
+        Me.Label15.Text = "Filtro de Fechas"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(11, 18)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(51, 16)
+        Me.Label10.TabIndex = 1
+        Me.Label10.Text = "Desde:"
+        '
+        'Button8
+        '
+        Me.Button8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
+        Me.Button8.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Button8.Location = New System.Drawing.Point(713, 140)
+        Me.Button8.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(100, 69)
+        Me.Button8.TabIndex = 106
+        Me.Button8.Text = "Exportar"
+        Me.Button8.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.Button8.UseVisualStyleBackColor = True
+        '
         'Frm_Marcas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1577, 866)
+        Me.Controls.Add(Me.Button8)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.CheckBox8)
         Me.Controls.Add(Me.CheckBox7)
@@ -317,6 +406,8 @@ Partial Class Frm_Marcas
         Me.Name = "Frm_Marcas"
         Me.Text = "Modulo Cargado de Marcas de Empleados Organizacional"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -347,4 +438,11 @@ Partial Class Frm_Marcas
     Friend WithEvents CheckBox7 As CheckBox
     Friend WithEvents CheckBox8 As CheckBox
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Button8 As Button
 End Class

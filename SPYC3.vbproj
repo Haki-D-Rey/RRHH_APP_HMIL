@@ -831,6 +831,7 @@
     <Compile Include="01 - PROCESOS\12 - Becados\Frm_Becados_Imprimir.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="01 - PROCESOS\13 - Marcas\Export.vb" />
     <Compile Include="01 - PROCESOS\13 - Marcas\Frm_Marcas.Designer.vb">
       <DependentUpon>Frm_Marcas.vb</DependentUpon>
     </Compile>
