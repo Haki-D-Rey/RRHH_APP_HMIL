@@ -13,8 +13,8 @@ Public Class Frm_Visor_Reportes
     Dim PathRPT As String
     'ULTIMO 155
     Private Sub MOSTRAR_REPORTE_CRYSTAL()
-        'PathRPT = "\\Hmil-spc-apprd\e$\v3 SPYC\Reportes\"
-        PathRPT = "C:\Users\ronny.calero\Desktop\2024\DESARROLLO\SISTEMAS_DESARROLLO\PROYECTO RRHH\Proyecto_RRHH_APP_Escritorio\02 - CONSULTAS\01 - Reportes\"
+        PathRPT = "\\Hmil-spc-apprd\e$\v3 SPYC\Reportes\"
+        'PathRPT = "C:\Users\ronny.calero\Desktop\2024\DESARROLLO\SISTEMAS_DESARROLLO\PROYECTO RRHH\Proyecto_RRHH_APP_Escritorio\02 - CONSULTAS\01 - Reportes\"
         Dim CR As New ReportDocument
         '------------------------------------------------------------------------------
         'SELECCION_PARAMETRO = FILTRO_SELECCION_EN_REPORTES
