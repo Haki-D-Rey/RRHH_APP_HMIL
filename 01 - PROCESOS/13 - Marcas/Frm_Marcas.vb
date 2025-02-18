@@ -427,24 +427,58 @@ Public Class Frm_Marcas
         Dim dtMarcas As DataTable = ConsultarDatos("dbo.[MAESTRO DE MARCAS] AS mdm",
         New List(Of String) From {
             "INNER JOIN dbo.[MAESTRO DE PERSONAS] mp ON mp.CODIGO = mdm.ID_EMPLEADO",
-            "INNER JOIN dbo.[CAT DE RELOJ] CT ON CT.IDRELOJ = mdm.IDRELOJ"
+            "INNER JOIN dbo.[CAT DE RELOJ] CT ON CT.IDRELOJ = mdm.IDRELOJ",
+            "INNER JOIN dbo.[MAESTRO DE CARGOS] mc ON mc.ID_M_P = mp.ID_M_P",
+            "INNER JOIN dbo.[CAT DE CARGOS DE ESTRUCTURA] ces ON mc.ID_CARGO_ES = ces.ID_CARGO_ES"
         },
          "'" + displayMemberSeleccionado + "' AS DEPARTAMENTO, " &
         "mp.NOMBRES + ' ' + mp.APELLIDOS as NombreCompleto,
+         ces.DESCRIPCION as CARGO,
          mdm.ID_EMPLEADO,
          CT.DESCRIPCION,
          mdm.FECHA_MARCA,
         COALESCE(CONVERT(VARCHAR, MIN(CASE
                                          WHEN mdm.TIPO_MARCA = 'ENTRADA' THEN mdm.HORA_MARCA
-                                     END), 120), 'USUARIO NO MARCO') AS ENTRADA,
-       COALESCE(CONVERT(VARCHAR, MAX(CASE
+                                     END), 108), 'USUARIO NO MARCO') AS ENTRADA,
+        COALESCE(CONVERT(VARCHAR, MAX(CASE
                                          WHEN mdm.TIPO_MARCA = 'SALIDA' THEN mdm.HORA_MARCA
-                                     END), 120), 'USUARIO NO MARCO') AS SALIDA",
+                                     END), 108), 'USUARIO NO MARCO') AS SALIDA",
         whereCodigos,
         New Dictionary(Of String, Object),
-        "mdm.ID_EMPLEADO, CT.DESCRIPCION, mp.NOMBRES, mp.APELLIDOS, mdm.FECHA_MARCA",
+        "mdm.ID_EMPLEADO, CT.DESCRIPCION, mp.NOMBRES, mp.APELLIDOS, ces.DESCRIPCION ,mdm.FECHA_MARCA",
         "mdm.FECHA_MARCA ASC, CT.DESCRIPCION, mdm.ID_EMPLEADO ASC"
     )
+        ' Agregar columnas para los cálculos
+        dtMarcas.Columns.Add("DÍAS ACUMULADOS", GetType(Integer))
+        dtMarcas.Columns.Add("HORAS ACUMULADOS", GetType(Integer))
+        dtMarcas.Columns.Add("MINUTOS ACUMULADOS", GetType(Integer))
+        dtMarcas.Columns.Add("SEGUNDOS ACUMULADOS", GetType(Integer))
+
+        ' Recorrer todas las filas y calcular las diferencias
+        For Each row As DataRow In dtMarcas.Rows
+            Dim entradaStr As String = row("ENTRADA").ToString()
+            Dim salidaStr As String = row("SALIDA").ToString()
+
+            ' Si alguna marca es "USUARIO NO MARCO", poner todos los valores en 0
+            If entradaStr = "USUARIO NO MARCO" Or salidaStr = "USUARIO NO MARCO" Then
+                row("DÍAS ACUMULADOS") = 0
+                row("HORAS ACUMULADOS") = 0
+                row("MINUTOS ACUMULADOS") = 0
+                row("SEGUNDOS ACUMULADOS") = 0
+            Else
+                ' Convertir a tipo TimeSpan para calcular la diferencia
+                Dim entradaHora As TimeSpan = TimeSpan.Parse(entradaStr)
+                Dim salidaHora As TimeSpan = TimeSpan.Parse(salidaStr)
+                Dim diferencia As TimeSpan = salidaHora - entradaHora
+
+                ' Llenar los valores calculados
+                row("DÍAS ACUMULADOS") = diferencia.Days
+                row("HORAS ACUMULADOS") = diferencia.Hours
+                row("MINUTOS ACUMULADOS") = diferencia.Minutes
+                row("SEGUNDOS ACUMULADOS") = diferencia.Seconds
+            End If
+        Next
+
 
         ' Asignar la DataTable al DataGridView
         DataGridView1.DataSource = dtMarcas
@@ -453,6 +487,7 @@ Public Class Frm_Marcas
         With DataGridView1
             .Columns("DEPARTAMENTO").HeaderText = "DEPARTAMENTO"
             .Columns("NombreCompleto").HeaderText = "NOMBRE COMPLETO"
+            .Columns("CARGO").HeaderText = "CARGO EMPLEADO"
             .Columns("ID_EMPLEADO").HeaderText = "CODIGO EMPLEADO"
             .Columns("DESCRIPCION").HeaderText = "RELOJ"
             .Columns("FECHA_MARCA").HeaderText = "FECHA MARCA"
